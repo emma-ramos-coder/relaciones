@@ -9,7 +9,21 @@
 <body>
     <h1>Usuario: {{ $user->name }}</h1>
     <p>Email: {{ $user->email }} </p>
-    <p>Prefijo: {{ $user->phone->prefijo }} </p>
-    <p>Prefijo: {{ $user->phone->numero }} </p>
+    <p>Teléfonos: </p>
+    <ul>
+        @foreach( $user->phones as $phone)
+        <li> 
+            {{ $phone->prefijo }} - {{ $phone->numero }}
+        </li>
+        @endforeach
+    </ul>
+    <p>Roles asignados: </p>
+    <ul>
+        @foreach( $user->roles as $role)
+        <li> 
+            {{ $role->nombre }} 
+        </li>
+        @endforeach
+    </ul>
 </body>
 </html>

@@ -5,7 +5,8 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Phone;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -45,8 +46,13 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    // definición de la relación con phone
-    public function phone(): hasOne{
-        return $this->hasOne(Phone::class);
+    // definición de la relación con phones
+    public function phones(): HasMany{
+        return $this->hasMany(Phone::class);
+    }
+
+    // definición de la relación con roles
+    public function roles(): BelongsToMany{
+        return $this->belongsToMany(Role::class);
     }
 }
