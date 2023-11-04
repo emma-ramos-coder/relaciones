@@ -12,8 +12,8 @@
     <p>Teléfonos: </p>
     <ul>
         @foreach( $user->phones as $phone)
-        <li> 
-            {{ $phone->prefijo }} - {{ $phone->numero }} 
+        <li>
+            {{ $phone->prefijo }} - {{ $phone->numero }}
             <ul>
                 @foreach( $phone->sims as $sim)
                 <li>
@@ -27,21 +27,75 @@
     <p>Roles asignados: </p>
     <ul>
         @foreach( $user->roles as $role)
-        <li> 
-            {{ $role->nombre }} 
+        <li>
+            {{ $role->nombre }}
         </li>
         @endforeach
     </ul>
 
-    <!-- 
+    <!--
     Para acceder a la url de la imagen desde user o desde post será
     llamando a la funcion image, con post se debe enviar a la vista
     la variable post desde el controlador
     El operador coalescente nulo (??) para proporcionar un valor predeterminado si el objeto es nulo
     -->
 
-    <h1> {{ $user->image->url ?? 'No hay imagenes' }} </h1>
-    <h1> {{ $post->image->url ?? 'No hay imagenes' }} </h1>
+    <p>Imagenes asignadas a user {{ $user->name }}: </p>
+    <ul>
+        @foreach( $user->images as $image)
+        <li>
+            {{ $image->url ?? 'No hay imagenes' }}
+        </li>
+        @endforeach
+    </ul>
 
+    <p>Imagenes asignadas al post  {{ $post->titulo }}: </p>
+    <ul>
+        @foreach( $post->images as $image)
+        <li>
+            {{ $image->url ?? 'No hay imagenes' }}
+        </li>
+        @endforeach
+    </ul>
+
+    <h2>Post: {{ $post->titulo }}</h2>
+    <p>Tags: </p>
+    <ul>
+        @foreach( $post->tags as $tag)
+        <li>
+            {{ $tag->nombre }}
+            <p>Videos: </p>
+            <ul>
+                @foreach( $tag->videos as $video)
+                <li>
+                    {{ $video->titulo ?? 'No hay titulo' }}
+                    {{ $video->url ?? 'No hay URL' }}
+                    <br>
+                </li>
+                @endforeach
+            </ul>
+        </li>
+        @endforeach
+    </ul>
+
+    <h2>Tag: {{ $tag->nombre }}</h2>
+    <p>Posts: </p>
+    <ul>
+        @foreach( $tag->posts as $post)
+        <li>
+            {{ $post->titulo ?? 'No hay titulo' }}
+        </li>
+        @endforeach
+    </ul>
+    <p>Videos: </p>
+    <ul>
+        @foreach( $tag->videos as $video)
+        <li>
+            {{ $video->titulo ?? 'No hay titulo' }}
+            {{ $video->url ?? 'No hay URL' }}
+            <br>
+        </li>
+        @endforeach
+    </ul>
 </body>
 </html>

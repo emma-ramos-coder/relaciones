@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -66,10 +67,15 @@ class User extends Authenticatable
     // definición de la relación Has Many Through con sim a través de phone
     public function phoneSims():HasManyThrough{
         return $this->hasManyThrough(Sim::class,Phone::class);
-    }    
+    }
 
     // definición de la relación polimórfica uno a uno
     public function image():MorphOne{
         return $this->morphOne(Image::class,'imageable');
+    }
+
+    // definición de la relación polimórfica uno a muchos
+    public function images():MorphMany{
+        return $this->morphMany(Image::class,'imageable');
     }
 }
