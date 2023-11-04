@@ -7,6 +7,7 @@ use App\Models\Phone;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -49,7 +50,12 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    // definición de la relación con phones
+    // definición de la relación uno a uno con phone
+    public function phone(): HasOne{
+        return $this->hasOne(Phone::class);
+    }
+
+    // definición de la relación uno a muchos con phones
     public function phones(): HasMany{
         return $this->hasMany(Phone::class);
     }
